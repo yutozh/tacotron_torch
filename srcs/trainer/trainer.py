@@ -33,6 +33,8 @@ class Trainer(BaseTrainer):
             'loss', *[m.__name__ for m in self.metric_ftns], postfix='/train', writer=self.writer)
         self.valid_metrics = BatchMetrics(
             'loss', *[m.__name__ for m in self.metric_ftns], postfix='/valid', writer=self.writer)
+        
+        print("Device" + str(self.device))
 
     def _train_epoch(self, epoch):
         """
@@ -41,6 +43,7 @@ class Trainer(BaseTrainer):
         :param epoch: Integer, current training epoch.
         :return: A log that contains average loss and metric in this epoch.
         """
+        self.model = self.model.to(self.device)
         self.model.train()
         self.train_metrics.reset()
         # for batch_idx, (data, target) in enumerate(self.data_loader):

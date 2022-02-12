@@ -26,9 +26,11 @@ class Encoder(nn.Module):
 
         self.proj1 = nn.Sequential(nn.Conv1d(self.conv_channel * self.K , self.projections[0], kernel_size=3, padding='same'), nn.ReLU(), nn.BatchNorm1d(self.projections[0]))
         self.proj2 = nn.Sequential(nn.Conv1d(self.projections[0], self.projections[1], kernel_size=3, padding='same'), nn.ReLU(), nn.BatchNorm1d(self.projections[1]))
+        
+        half_depth = self.depth // 2
+        self.before_highway = nn.Linear(input_channel, half_depth)
 
         # 4-layer HighwayNet:
-        half_depth = self.depth // 2
         self.highwaynet = nn.Sequential(*[Highway(half_depth, half_depth) for _ in range(4)])
 
         # 双向GRU
@@ -66,7 +68,7 @@ class Encoder(nn.Module):
 
         # Handle dimensionality mismatch:
         if highway_input.shape[2] != half_depth:
-            highway_input = nn.Linear(highway_input.shape[2], half_depth)(highway_input)
+            highway_input = self.before_highway(highway_input)
         
         # Highway
         highway_input = self.highwaynet(highway_input)
