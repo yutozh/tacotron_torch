@@ -117,7 +117,6 @@ class Decoder(nn.Module):
                 memory, hlens, z_list[0], prev_att_w)  # torch.Size([45, 256]), torch.Size([45, 84])
             prenet_out = self.prenet(
                 prev_out) if self.prenet is not None else prev_out
-            print(att_c.shape, prenet_out.shape)
             xs = torch.cat([att_c, prenet_out], dim=1) # torch.Size([45, 256+256])
 
             z_list[0], c_list[0] = self.lstm[0](xs, (z_list[0], c_list[0]))
@@ -140,7 +139,7 @@ class Decoder(nn.Module):
                 stop = torch.sigmoid(stop)
 
             if self.training == False:
-                print(stop.shape, self._threshold)
+                print(stop, self._threshold)
                 if (stop[0][0] > self._threshold and cnt > self.min_iters) or cnt > self.max_iters:
                     break
                 prenet_out = out

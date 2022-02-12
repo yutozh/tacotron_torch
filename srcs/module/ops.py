@@ -34,8 +34,8 @@ def MaskedMSE(targets, outputs, targets_lengths, hparams, mask=None):
     #[batch_size, time_dimension, channel_dimension(mels)]
     ones = torch.ones(size=[mask.shape[0], mask.shape[1], targets.shape[-1]], dtype=torch.float32)
     mask_ = mask * ones
-    print(outputs.shape)
-    print(targets.shape)
+    # print(outputs.shape)
+    # print(targets.shape)
 
     return (mask_ * (outputs - targets) ** 2).mean()
     # loss = torch.nn.MSELoss()

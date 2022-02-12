@@ -51,12 +51,14 @@ class Trainer(BaseTrainer):
 
             self.optimizer.zero_grad()
             acoustic_outputs, decoder_output, stop_token_output = self.model(phones, input_length, acoustic_targets)
+            print("calu finished")
             loss = self.criterion(acoustic_outputs, decoder_output, stop_token_output, acoustic_targets, stop_token_targets, targets_length, self.config.hparams)
             loss.backward()
             self.optimizer.step()
 
             self.writer.set_step((epoch - 1) * self.len_epoch + batch_idx)
             self.train_metrics.update('loss', loss.item())
+            print("writer finished")
 
             if batch_idx % self.log_step == 0:
                 # self.writer.add_image(

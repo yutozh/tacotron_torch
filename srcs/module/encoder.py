@@ -43,7 +43,7 @@ class Encoder(nn.Module):
 
         # K个1D Conv, 然后将结果拼接
         inputs = inputs.permute(0, 2, 1)
-        print(inputs.shape)
+        # print(inputs.shape)
         conv_outputs = torch.concat([conv(inputs) for conv in self.convs_list], dim=1)
         # print(conv_outputs.shape)
 

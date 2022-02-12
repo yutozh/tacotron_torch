@@ -36,6 +36,5 @@ class TacotronSynthesizer(BaseSynthesizer):
 
         input_length = torch.from_numpy(np.asarray([len(phones)]))
         phones = torch.from_numpy(np.asarray(phones, np.int32)).unsqueeze(0)
-        print(phones.shape)
-        print("----")
+        
         return phones, input_length, None
