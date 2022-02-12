@@ -1,0 +1,11 @@
+label_dir: ${hydra:runtime.cwd}/data/testdata/biaobei/labels
+label_type: tacotron
+wav_dir: true
+out_feature_dir: true
+valid_size: 2
+n_jobs: 2
+
+defaults:
+  - hparams: tacotron
+
+

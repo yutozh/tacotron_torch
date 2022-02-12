@@ -1,0 +1,21 @@
+log_dir: ${name}/
+alignment_dir: 
+resume: 
+
+metrics:
+
+defaults:
+  - data: tacotron_train
+  - model: tacotron
+  - hparams: tacotron
+
+  - status: train
+
+  - override hydra/job_logging : custom
+
+args:
+  label_dir: ${hydra:runtime.cwd}/data/testdata/biaobei/labels
+  output_dir: ${hydra:runtime.cwd}/synthesized
+  checkpoint: ${hydra:runtime.cwd}/outputs/2022-02-11/10-36-38/models/checkpoint-epoch1.pth
+  use_gl: true
+

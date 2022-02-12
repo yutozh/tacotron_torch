@@ -1,0 +1,17 @@
+# @package _global_
+name: MnistLeNet
+arch:
+  _target_: srcs.model.model.TacotronModel
+loss:
+  _target_: srcs.model.loss.loss
+optimizer:
+  _target_: torch.optim.Adam
+  lr: ${hparams.start_lr}
+  weight_decay: ${hparams.decay_rate}
+  betas: ${hparams.adam_beta}
+  eps: ${hparams.adam_epsilon}
+  amsgrad: true
+lr_scheduler:
+  _target_: torch.optim.lr_scheduler.StepLR
+  step_size: ${hparams.decay_steps}
+  gamma: ${hparams.decay_rate}
