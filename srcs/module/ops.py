@@ -32,7 +32,7 @@ def MaskedMSE(targets, outputs, targets_lengths, hparams, mask=None):
         mask = compute_mask(targets_lengths, hparams.outputs_per_step, True)
 
     #[batch_size, time_dimension, channel_dimension(mels)]
-    ones = torch.ones(size=[mask.shape[0], mask.shape[1], targets.shape[-1]], dtype=torch.float32)
+    ones = torch.ones(size=[mask.shape[0], mask.shape[1], targets.shape[-1]], dtype=torch.float32).to(targets.device)
     mask_ = mask * ones
     # print(outputs.shape)
     # print(targets.shape)
