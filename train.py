@@ -1,4 +1,3 @@
-from django.urls import conf
 import torch
 import numpy as np
 import logging
