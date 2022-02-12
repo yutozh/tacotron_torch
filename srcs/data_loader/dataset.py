@@ -54,7 +54,6 @@ class BiaoBeiDataset(Dataset):
 
 def get_collate_fn(outputs_per_step):
     def collate_fn(data_tuple):
-        print(data_tuple[0])
         phones = pad_sequence([torch.from_numpy(x[0]) for x in data_tuple], True, _pad)
         input_length = torch.from_numpy(np.asarray([x[1] for x in data_tuple], dtype=np.int32))
 

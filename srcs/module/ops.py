@@ -10,7 +10,7 @@ def round_up(max_len, r):
 def sequence_mask(lengths, maxlen=None, dtype=torch.bool):
     if maxlen is None:
         maxlen = lengths.max()
-    row_vector = torch.arange(0, maxlen, 1)
+    row_vector = torch.arange(0, maxlen, 1).to(lengths.device)
     matrix = torch.unsqueeze(lengths, dim=-1)
     mask = row_vector < matrix
 
